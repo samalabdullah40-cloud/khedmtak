@@ -20,5 +20,5 @@ app.post('/api/requests',(req,res)=>{const {userName,phone,service,city,area,pro
 app.post('/api/listings',(req,res)=>{const {title,price,city,phone,description}=req.body||{}; if(!title||!city)return res.status(400).json({error:'العنوان والمدينة مطلوبان'}); const db=load(); const x={id:id(),title,price:price||'',city,phone:phone||'',description:description||'',createdAt:new Date().toISOString()}; db.listings.unshift(x); save(db); res.status(201).json(x);});
 app.get('/api/listings',(req,res)=>{const db=load(); let a=db.listings; if(req.query.city)a=a.filter(x=>x.city===req.query.city); res.json(a);});
 app.get('/api/summary',(req,res)=>{const db=load();res.json({users:db.users.length,reports:db.reports.length,providers:db.providers.length,requests:db.requests.length,listings:db.listings.length});});
-app.use(express.static(path.join(__dirname,'public'))); app.get('*',(req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
+app.use(express.static(__dirname));
 const port=process.env.PORT||3000; app.listen(port,()=>console.log(`Khedmtak running on ${port}`));
