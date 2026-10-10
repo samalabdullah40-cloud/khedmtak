@@ -26,7 +26,7 @@ app.disable("x-powered-by");
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(express.json({ limit: "100kb" }));
-app.use(express.static(path.join(ROOT, "public")));
+app.use(express.static(ROOT));
 
 const clean = (value, max = 250) => String(value ?? "").trim().slice(0, max);
 const fail = (res, status, error) => res.status(status).json({ error });
